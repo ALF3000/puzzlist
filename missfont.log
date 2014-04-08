@@ -1,0 +1,104 @@
+mktexpk --mfmode / --bdpi 600 --mag 0+360/600 --dpi 360 ptmr7t
+mktexpk --mfmode / --bdpi 600 --mag 0+444/600 --dpi 444 ptmr7t
+mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 ptmri7t
+mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 zptmcm7v
+mktexpk --mfmode / --bdpi 600 --mag 0+360/600 --dpi 360 zptmcm7y
+mktexpk --mfmode / --bdpi 600 --mag 0+444/600 --dpi 444 zptmcm7y
+mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 zptmcm7y
+mktexpk --mfmode / --bdpi 600 --mag 0+444/600 --dpi 444 zptmcm7m
+mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 zptmcm7m
+mktexpk --mfmode / --bdpi 600 --mag 0+444/600 --dpi 444 zptmcm7t
+mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 zptmcm7t
+mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 ptmb7t
+mktexpk --mfmode / --bdpi 600 --mag 1+120/600 --dpi 720 ptmr7t
+mktexpk --mfmode / --bdpi 600 --mag 1+437/600 --dpi 1037 ptmb7t
+mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 ptmr7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktextfm ptmb7t
+mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 tcrm1200
+mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 ptmri8r
+mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 ptmbi8r
+mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 ptmb8r
+mktexpk --mfmode / --bdpi 600 --mag 0+480/600 --dpi 480 ptmr8r
+mktexpk --mfmode / --bdpi 600 --mag 1+120/600 --dpi 720 ptmri8r
+mktexpk --mfmode / --bdpi 600 --mag 1+120/600 --dpi 720 ptmb8r
+mktexpk --mfmode / --bdpi 600 --mag 1+120/600 --dpi 720 ptmr8r
+mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 ptmr8r
+mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 tcrm1200

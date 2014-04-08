@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<title> Music Hack Day special : Puzzlist, the puzzling playlist generator</title>
+<link rel="stylesheet" type="text/css" href="pls.css">
+
+<?php
+$cache_expire = 60*60*24*365;
+header("Pragma: public");
+header("Cache-Control: maxage=".$cache_expire);
+header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$cache_expire) . ' GMT');
+?>
+<script src="http://cdn-files.deezer.com/js/min/dz.js"></script>
+<script language="javascript" type="text/javascript">
+
+ function playSound(soundfile) {
+	 document.getElementById("dummy").innerHTML=document.getElementById("dummy").innerHTML+
+ 	"<embed src=\""+soundfile+"\" hidden=\"true\" autost(art=\"true\" loop=\"false\" />";
+ 	 }
+ 	
+ 	function httpGet(theUrl)
+ 	{
+ 	    var oReq = new XMLHttpRequest();
+ 		oReq.onreadystatechange = reqListener;
+ 		console.log(theUrl)
+ 		oReq.open("get", theUrl, true);
+ 		oReq.send();
+ 	}
+ 	
+ 	function addSong(img_url,snd_url)
+ 	{
+ 		document.getElementById("list1").innerHTML=
+ 			document.getElementById("list1").innerHTML+
+ 			"<li> <a href=\"#\" onclick=\"playSound('"+snd_url+"');\"> <IMG SRC=\""+img_url+"\" BORDER=0> </a></li>"
+ 	}
+ 	
+ 	function reqListener () {
+ 		if (this.readyState==4){
+			// console.log('coucou')
+			if (this.status==200){
+				console.log(this.responseText)
+			}
+			else{console.log(this.status)}
+ 		}
+ 
+	// json=this.responseText
+//	obj=JSON.parse(json)
+//	console.log(obj.data);
+}
+
+function simpleDeezerApiRequest(){
+    // The following won't work because of cross-domain access
+    // $.getJSON(apiUrl + 'artist/27', function(data){
+    // console.log(data);
+    // });
+
+    $.ajax({
+        dataType: "jsonp",
+        url :"http://api.deezer.com/2.0/artist/27?output=jsonp",
+        data : {},
+        jsonp : 'callback',
+        success : function(data) { console.log(data); }
+    });
+
+};
+
+function callback(data){
+    console.log(data);
+};
+
+function response(){
+	console.log(this)	
+}
+
+function deezit(){
+	query=document.getElementById('qtext').value
+	DZ.api('search/artist/?q='+query+'&limit=1',response);
+//	document.getElementById("dummy").innerHTML+="<br> coucou"
+	// url="http://api.deezer.com/search/artist/?q="+query+"&limit=1"
+	// httpGet(url)
+	// obj = JSON.parse(json);
+// 	arid=obj.data.id;
+	// arid=1
+// 	// get reommendation
+	// url="http://api.deezer.com/artist/"+arid+"/top"
+	// httpGet(url)
+// 	obj=JSON.parse(json)
+// 	snd_url=obj.data[0].preview
+// 	img_url=obj.data[0].album.cover
+// 	document.getElementById('dummy').innerHTML="preview "+snd_url+" cover "+img_url
+// //	img_url="swsm.png"
+// //	snd_url="01 - Baby Night.mp3"
+// 	addSong(img_url,snd_url)
+}
+</script>
+</head>
+<body>
+<div id="dz-root"></div>
+ <script>
+    DZ.init({
+    appId : 'YOUR_APP_ID',
+    channelUrl : 'http://YOUR_DOMAIN/channel.html'
+    });
+</script>
+
+
+
+ <ul id="list1">
+ 	<li>
+ 		<a href="#" onclick="addSong('swsm.png','01 - Baby Night.mp3')">
+			<IMG SRC="rocket.jpeg" BORDER=0>
+		<a>
+ 	</li>
+ 	<li>
+ 		<form id="form1" action="JavaScript:deezit();" method="get">
+ 			<fieldset>
+ 				<input type="text" id="qtext"/>
+ 			</fieldset>
+ 		</form>
+ 	</li>
+</ul>
+
+</body>
+</html>
