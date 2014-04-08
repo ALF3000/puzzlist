@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<title> Music Hack Day special : Puzzlist, the puzzling playlist generator</title>
+<link rel="stylesheet" type="text/css" href="pls.css">
+<script type="text/javascript" src="jquery-2.1.0.js"></script>
+<!-- <script src="https://cdns-files.deezer.com/js/min/dz.js"></script> -->
+
+<script language="javascript" type="text/javascript">
+ function playSound(soundfile) {
+	 document.getElementById("dummy").innerHTML="<embed src=\""+soundfile+"\" hidden=\"true\" autost(art=\"true\" loop=\"false\" />";
+ 	 }
+ 	
+</script>
+</head>
+<body onload="init()">
+
+<div id="dummy"></div>
+
+<form id="form1" action="JavaScript:loadPls()" hidden="true">
+	<fieldset>
+		<input type="text" id="plstxt"/>
+	</fieldset>
+</form>
+<table id="maindiv"> </table>
+
+<script> 
+var pls=null;
+var ids=null;
+var field=null;
+var minis=null;
+var maxis=null;
+var plsreco=null;
+
+function init(){
+	document.plsurl='hiscoolrock.json'
+	genMosaic();
+}
+
+function loadPls(){
+	document.plsurl=document.getElementById('plstxt').value
+	genMosaic();
+}
+
+function maketd(img_url,snd_url,cid){
+	newtd="<td id=\"item"+cid[0]+"_"+cid[1]+"\"> <a href=\"#\" onclick=\"playSound('"+snd_url+"');\"> <IMG SRC=\""+img_url+"\" BORDER=0> </a></td>";
+	return newtd;
+}
+
+function makeCover(img_url,snd_url){
+	return "<a href=\"#\" onclick=\"playSound('"+snd_url+"');\"> <IMG SRC=\""+img_url+"\" BORDER=0> </a>";
+}
+
+function genMosaic(){
+	// do the random walk first, then generate the whole table
+	// $.ajax()	
+
+	$.ajax({
+		url:document.plsurl,
+		dataType:'json',
+		success: buildMosaic,
+		complete: addRecos
+	})
+}
+
+function addRecos(data){
+	// console.log(pls)
+	// console.log(ids)
+	$.ajax({
+		url:'hiscoolrock_reco.json',
+		dataType:'json',
+		success:function(data){
+			console.log(data)
+			plsreco=data
+			// console.log(field)
+			for(i=0;i<pls.data.length;i++){
+				// sample coordinates to recommended item
+				var inc=0
+				do{
+					if(Math.random()<.5){j=0}else{j=1}
+					if(Math.random()<.5){u=1}else{u=-1}
+					id=[ids[i][0],ids[i][1]]
+					id[j]+=u
+					inc++
+				}while (field[50+id[0]+minis[0]][50+id[1]+minis[1]]==1 & inc<100)
+
+				console.log(field[50+id[0]+minis[0]][50+id[1]+minis[1]])
+				if(field[50+id[0]+minis[0]][50+id[1]+minis[1]]==0){
+						// console.log(document.getElementById("item"+ids[i][0]+"_"+ids[i][1]).children[0])
+					document.getElementById("item"+ids[i][0]+"_"+ids[i][1]).children[0].ngb=id
+					document.getElementById("item"+ids[i][0]+"_"+ids[i][1]).children[0].fid=i
+					document.getElementById("item"+ids[i][0]+"_"+ids[i][1]).children[0].onmouseover=
+						function(){
+							ngbid="item"+this.ngb[0]+"_"+this.ngb[1]
+							// console.log(ngbid);
+							// console.log(document.getElementById(ngbid))//.innerHTML=
+							// document.getElementById(ngbid).style.background='red'
+							snd_url="";
+							img_url="reco_image"+this.fid+".jpeg";
+							document.getElementById(ngbid).innerHTML="<img src=\""+img_url+"\" border=0>"
+						}
+						document.getElementById("item"+ids[i][0]+"_"+ids[i][1]).children[0].onmouseout=
+						function(){
+							ngbid="item"+this.ngb[0]+"_"+this.ngb[1]
+							
+							// console.log(ngbid);
+							// console.log()
+							// console.log(document.getElementById(ngbid))//.innerHTML=
+							document.getElementById(ngbid).style.background='white'
+							document.getElementById(ngbid).innerHTML=""
+						}					
+				}
+					
+				// 	console.log(document.getElementById("item"+id[0]+"_"+id[1]).chidlren[0])
+			}
+		}
+	})
+}
+
+function buildMosaic(data){
+	pls=data.tracks;
+	// console.log(data)
+	// build random tree
+	field=new Array()
+	for (nr=0;nr<101;nr++){
+		field[nr]=new Array();
+		for (nc=0;nc<101;nc++)
+		{
+			field[nr][nc]=0
+		}
+	}
+	ids=new Array()
+	minis=[0,0]
+	maxis=[0,0]
+	ids[0]=[0,0]
+	field[ids[0][0]+50][ids[0][1]+50]=1			
+
+	// console.log(data.tracks.data.length)
+	for (i=1;i<data.tracks.data.length;i+=1){
+		// console.log(i)
+		inc=0
+		cid=[ids[i-1][0],ids[i-1][1]]
+		do{
+			if (Math.random()<.5){wi=1;}else{wi=0;}
+			if(Math.random()<.5){du=1;}else{du=-1;}
+			cid[wi]=ids[i-1][wi]+du
+			inc++
+		}while (field[cid[0]+50][cid[1]+50]==1 &&inc<100)
+		
+		ids[i]=[cid[0],cid[1]]
+		// console.log(cid[0])
+		// console.log(cid[1])
+		// console.log()
+		for (j=0;j<2;j++){minis[j]=Math.min(cid[j],minis[j])}
+		for (j=0;j<2;j++){maxis[j]=Math.max(cid[j],maxis[j])}
+		field[ids[i][0]+50][ids[i][1]+50]=1			
+	}
+	for (j=0;j<2;j++){
+		maxis[j]+=1
+		minis[j]-=1
+	}
+	nrows=maxis[0]-minis[0]+1
+	ncols=maxis[1]-minis[1]+1
+	// change coordinates to absolute
+	for (i=0;i<data.tracks.data.length;i++){
+		for(j=0;j<2;j++){ids[i][j]-=minis[j]}
+
+	}
+	// console.log(nrows)
+	// console.log(ncols)
+	// console.log(ids)
+	tds=new Array()
+	// fill array with empty <td> items
+	for (nr=0;nr<nrows;nr++){
+		tds[nr]=new Array()
+		for (nc=0;nc<ncols;nc++){
+			tds[nr][nc]='<td width=120 height=120 id=\"item'+nr+"_"+nc+'\"></td>'
+		}
+	}
+	// populate array where appropriate
+	for (i=0;i<data.tracks.data.length;i++){
+		img_url="image"+i+".jpeg";
+		// img_url=data.tracks.data[i].album.cover;
+
+		// img_url='http://cdn-images.deezer.com/images/cover/d93ab233ed5e184b3017b94461c39684/120x120-000000-80-0-0.jpg';
+		
+		surl=data.tracks.data[i].preview;
+		// surl='http://cdn-preview-e.deezer.com/stream/edbc5c76734b957490fe2f5c4b98bbac-1.mp3';
+		// img_url='swsm.png'
+		// surl='01 - Baby Night.mp3'
+		ntd=maketd(img_url,surl,ids[i]);
+		tds[ids[i][0]][ids[i][1]]=ntd;
+	}
+	// console.log(tds)
+
+	// generate html code for the table
+	str=""
+	for (nr=0;nr<nrows;nr++){
+		str+='<tr>'
+		for (nc=0;nc<ncols;nc++){
+			str+=tds[nr][nc]
+		}
+		str+='</tr>'
+	}
+	// console.log(str)
+	// finally, populate the table
+	document.getElementById("maindiv").innerHTML=str		
+	// console.log(pls)	
+}
+
+</script>
+</body>
+</html>
